@@ -75,7 +75,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    	{
 	    		for(int j = 0; j < checkboard[i].length; j++) 
 	    		{ 
-	    			if(checkboard[i][j]==PawnColor.WHITE)
+	    			if(checkboard[i][j]==PawnColor.WHITE || checkboard[i][j]==PawnColor.DAME_WHITE)
 	    			{
 	    				nb=nb+1;
 	    			}
@@ -90,7 +90,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    	{
 	    		for(int j = 0; j < checkboard[i].length; j++) 
 	    		{ 
-	    			if(checkboard[i][j]==PawnColor.BLACK)
+	    			if(checkboard[i][j]==PawnColor.BLACK || checkboard[i][j]==PawnColor.DAME_BLACK)
 	    			{
 	    				nb=nb+1;
 	    			}
@@ -375,186 +375,245 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    						System.out.println("ce deplacement n'est pas autorisé");
 	    					}
 	    				break;
-	    				case DAME_WHITE:
-	    					if(Math.abs(ligneInitial-ligneFinal)==Math.abs(columnInitial-columnFinal))
-	    					{	
-	    						int i;
-	    						if( ligneFinal>ligneInitial && columnFinal>columnInitial)
-	    						{
-	    							for(i=0;i<=(columnFinal-columnInitial);i++)
-	    							{
-	    								switch(checkboard[ligneInitial+i][columnInitial+i])
-	    								{
-	    								case WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case BLACK:
-	    									if(checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{	
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial+i][columnInitial+i]=null;
-	    										checkboard[ligneInitial+i+1][columnInitial+i+1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								case DAME_WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case DAME_BLACK:
-	    									if(checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial+i][columnInitial+i]=null;
-	    										checkboard[ligneInitial+i+1][columnInitial+i+1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								default:
-	    									checkboard[ligneInitial][columnInitial]=null;
-	    									checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
-	    									break;
-	    								}
-	    							}
-	    						}
-	    						
-	    						if( ligneFinal<ligneInitial && columnFinal<columnInitial)
-	    						{
-	    							for(i=0;i<=(columnInitial-columnFinal);i++)
-	    							{
-	    								switch(checkboard[ligneInitial-i][columnInitial-i])
-	    								{
-	    								case WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case BLACK:
-	    									if(checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{	
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial-i][columnInitial-i]=null;
-	    										checkboard[ligneInitial-i-1][columnInitial-i-1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								case DAME_WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case DAME_BLACK:
-	    									if(checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial-i][columnInitial-i]=null;
-	    										checkboard[ligneInitial-i-1][columnInitial-i-1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								default:
-	    									checkboard[ligneInitial][columnInitial]=null;
-	    									checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
-	    									break;
-	    								}
-	    							}
-	    						}
-	    						
-	    						if( ligneFinal<ligneInitial && columnFinal>columnInitial)
-	    						{
-	    							for(i=0;i<=(columnInitial-columnFinal);i++)
-	    							{
-	    								switch(checkboard[ligneInitial-i][columnInitial+i])
-	    								{
-	    								case WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case BLACK:
-	    									if(checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{	
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial-i][columnInitial+i]=null;
-	    										checkboard[ligneInitial-i-1][columnInitial+i+1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								case DAME_WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case DAME_BLACK:
-	    									if(checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial-i][columnInitial+i]=null;
-	    										checkboard[ligneInitial-i-1][columnInitial+i+1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								default:
-	    									checkboard[ligneInitial][columnInitial]=null;
-	    									checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
-	    									break;
-	    								}
-	    							}
-	    						}
-	    						
-	    						if( ligneFinal>ligneInitial && columnFinal<columnInitial)
-	    						{
-	    							for(i=0;i<=(ligneInitial-ligneFinal);i++)
-	    							{
-	    								switch(checkboard[ligneInitial+i][columnInitial-i])
-	    								{
-	    								case WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case BLACK:
-	    									if(checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{	
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial+i][columnInitial-i]=null;
-	    										checkboard[ligneInitial+i+1][columnInitial-i-1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								case DAME_WHITE:
-	    									System.out.println("vous avez deja un pion sur cette case");
-	    									break;
-	    								case DAME_BLACK:
-	    									if(checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_WHITE)
-	    									{
-	    										System.out.println("il y a un pion adverse qui protege ce pion");
-	    									}
-	    									else
-	    									{
-	    										checkboard[ligneInitial][columnInitial]=null;
-	    										checkboard[ligneInitial+i][columnInitial-i]=null;
-	    										checkboard[ligneInitial+i+1][columnInitial-i-1]=PawnColor.DAME_WHITE;
-	    									}
-	    									break;
-	    								default:
-	    									checkboard[ligneInitial][columnInitial]=null;
-	    									checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
-	    									break;
-	    								}
-	    							}
-	    						}
-	    					}
+	    		case DAME_WHITE:
+					
+					if(Math.abs(ligneInitial-ligneFinal)==Math.abs(columnInitial-columnFinal))
+					{	
+						int i;
+						if( ligneFinal>ligneInitial && columnFinal>columnInitial)
+						{
+							boolean move=false;
+							for(i=1;i<=(columnFinal-columnInitial+1);i++)
+							{	
+								if(ligneInitial+i<=8 && columnInitial+i<=8){
+								if(checkboard[ligneInitial+i][columnInitial+i]!=null)
+								{
+								switch(checkboard[ligneInitial+i][columnInitial+i])
+								{
+								case WHITE:
+									System.out.println("vous avez deja un pion sur cette case");
+									move=true;
+									break;
+								case BLACK:
+									if(checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_WHITE)
+									{
+										System.out.println("il y a un pion adverse qui protege ce pion");
+										move=true;
+									}
+									else
+									{	
+										checkboard[ligneInitial][columnInitial]=null;
+										checkboard[ligneInitial+i][columnInitial+i]=null;
+										checkboard[ligneInitial+i+1][columnInitial+i+1]=PawnColor.DAME_WHITE;
+										move=true;
+									}
+									break;
+								case DAME_WHITE:
+									System.out.println("vous avez deja un pion sur cette case");
+									move=true;
+									break;
+								case DAME_BLACK:
+									if(checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial+i+1]==PawnColor.DAME_WHITE)
+									{
+										System.out.println("il y a un pion adverse qui protege ce pion");
+										move=true;
+									}
+									else
+									{
+										checkboard[ligneInitial][columnInitial]=null;
+										checkboard[ligneInitial+i][columnInitial+i]=null;
+										checkboard[ligneInitial+i+1][columnInitial+i+1]=PawnColor.DAME_WHITE;
+										move=true;
+									}
+									break;
+									}
+								}
+								}
+							}
+							if(move==false)
+								{
+									checkboard[ligneInitial][columnInitial]=null;
+								checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
+								}
+						}
+						
+						if( ligneFinal<ligneInitial && columnFinal<columnInitial)
+						{	
+							
+							boolean move=false;
+							for(i=1;i<(columnInitial-columnFinal+1);i++)
+							{	
+								if(ligneInitial-i<=8 && columnInitial-i<=8){
+								if(checkboard[ligneInitial-i][columnInitial-i]!=null)
+								{
+									switch(checkboard[ligneInitial-i][columnInitial-i])
+									{
+									case WHITE:
+										System.out.println("vous avez deja un pion sur cette case");
+										move=true;
+										break;
+									case BLACK:
+										if(checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_WHITE)
+										{
+											System.out.println("il y a un pion adverse qui protege ce pion");
+											move=true;
+										}
+										else
+										{	
+											checkboard[ligneInitial][columnInitial]=null;
+											checkboard[ligneInitial-i][columnInitial-i]=null;
+											checkboard[ligneInitial-i-1][columnInitial-i-1]=PawnColor.DAME_WHITE;
+											move=true;
+										}
+										break;
+									case DAME_WHITE:
+										
+										System.out.println("vous avez deja un pion sur cette case");
+										move=true;
+										break;
+									case DAME_BLACK:
+										if(checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial-i-1]==PawnColor.DAME_WHITE)
+										{
+											System.out.println("il y a un pion adverse qui protege ce pion");
+											move=true;
+										}
+										else
+										{
+											checkboard[ligneInitial][columnInitial]=null;
+											checkboard[ligneInitial-i][columnInitial-i]=null;
+											checkboard[ligneInitial-i-1][columnInitial-i-1]=PawnColor.DAME_WHITE;
+											move=true;
+										}
+										break;
+									}
+								}
+							}
+							}
+							if(move==false)
+							{
+								checkboard[ligneInitial][columnInitial]=null;
+								checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
+							}
+								
+						}
+						
+						if( ligneFinal<ligneInitial && columnFinal>columnInitial)
+						{	
+							boolean move=false;
+							for(i=1;i<=(columnFinal-columnInitial+1);i++)
+							{
+								if(ligneInitial-i<=8 && columnInitial+i<=8){
+								if(checkboard[ligneInitial-i][columnInitial+i]!=null)
+								{
+								switch(checkboard[ligneInitial-i][columnInitial+i])
+								{
+								case WHITE:
+									System.out.println("vous avez deja un pion sur cette case");
+									move=true;
+									break;
+								case BLACK:
+									if(checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_WHITE)
+									{
+										System.out.println("il y a un pion adverse qui protege ce pion");
+										move=true;
+									}
+									else
+									{	
+										checkboard[ligneInitial][columnInitial]=null;
+										checkboard[ligneInitial-i][columnInitial+i]=null;
+										checkboard[ligneInitial-i-1][columnInitial+i+1]=PawnColor.DAME_WHITE;
+										move=true;
+									}
+									break;
+								case DAME_WHITE:
+									System.out.println("vous avez deja un pion sur cette case");
+									move=true;
+									break;
+								case DAME_BLACK:
+									if(checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_BLACK || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.WHITE || checkboard[ligneInitial-i-1][columnInitial+i+1]==PawnColor.DAME_WHITE)
+									{
+										System.out.println("il y a un pion adverse qui protege ce pion");
+										move=true;
+									}
+									else
+									{
+										checkboard[ligneInitial][columnInitial]=null;
+										checkboard[ligneInitial-i][columnInitial+i]=null;
+										checkboard[ligneInitial-i-1][columnInitial+i+1]=PawnColor.DAME_WHITE;
+										move=true;
+									}
+									break;
+								}
+							}
+						}
+							}
+							if(move==false)
+							{
+							checkboard[ligneInitial][columnInitial]=null;
+							checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
+							}
+						}
+						
+						if( ligneFinal>ligneInitial && columnFinal<columnInitial)
+						{
+							boolean move=false;
+							for(i=1;i<=(ligneFinal-ligneInitial+1);i++)
+							{
+								if(ligneInitial+i<=8 && columnInitial-i<=8){		
+								if(checkboard[ligneInitial+i][columnInitial-i]!=null)
+								{
+									switch(checkboard[ligneInitial+i][columnInitial-i])
+									{
+									case WHITE:
+										System.out.println("vous avez deja un pion sur cette case");
+										move=true;
+										break;
+									case BLACK:
+										
+										if(checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_WHITE)
+										{
+											System.out.println("il y a un pion adverse qui protege ce pion");
+											move=true;
+										}
+										else
+										{	
+											
+											checkboard[ligneInitial][columnInitial]=null;
+											checkboard[ligneInitial+i][columnInitial-i]=null;
+											checkboard[ligneInitial+i+1][columnInitial-i-1]=PawnColor.DAME_WHITE;
+											move=true;
+										}
+									break;
+									case DAME_WHITE:
+										System.out.println("vous avez deja un pion sur cette case");
+										move=true;
+									break;
+									case DAME_BLACK:
+										if(checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_WHITE)
+										{
+											System.out.println("il y a un pion adverse qui protege ce pion");
+											move=true;
+										}
+										else
+										{
+											checkboard[ligneInitial][columnInitial]=null;
+											checkboard[ligneInitial+i][columnInitial-i]=null;
+											checkboard[ligneInitial+i+1][columnInitial-i-1]=PawnColor.DAME_WHITE;
+											move=true;
+										}
+									break;
+									}
+								}
+							}
+							
+						}
+							if(move==false)
+							{
+								checkboard[ligneInitial][columnInitial]=null;
+								checkboard[ligneFinal][columnFinal]=PawnColor.DAME_WHITE;
+							}
+						}
+						}	
 	    				break;
 	    				case DAME_BLACK:
 	    					
@@ -624,7 +683,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    							boolean move=false;
 	    							for(i=1;i<(columnInitial-columnFinal+1);i++)
 	    							{	
-	    								if(ligneInitial+i<=8 && columnInitial+i<=8){
+	    								if(ligneInitial-i<=8 && columnInitial-i<=8){
 	    								if(checkboard[ligneInitial-i][columnInitial-i]!=null)
 	    								{
 	    									switch(checkboard[ligneInitial-i][columnInitial-i])
@@ -648,7 +707,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    										}
 	    										break;
 	    									case DAME_BLACK:
-	    										System.out.println("test");
+	    										
 	    										System.out.println("vous avez deja un pion sur cette case");
 	    										move=true;
 	    										break;
@@ -681,10 +740,10 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    						if( ligneFinal<ligneInitial && columnFinal>columnInitial)
 	    						{	
 	    							boolean move=false;
-	    							for(i=1;i<=(columnInitial-columnFinal+1);i++)
+	    							for(i=1;i<=(columnFinal-columnInitial+1);i++)
 	    							{
-	    								if(ligneInitial+i<=8 && columnInitial+i<=8){
-	    								if(checkboard[ligneInitial-i][columnInitial+i]==null)
+	    								if(ligneInitial-i<=8 && columnInitial+i<=8){
+	    								if(checkboard[ligneInitial-i][columnInitial+i]!=null)
 	    								{
 	    								switch(checkboard[ligneInitial-i][columnInitial+i])
 	    								{
@@ -724,9 +783,6 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    										move=true;
 	    									}
 	    									break;
-	    								
-	    									
-	    									
 	    								}
 	    							}
 	    						}
@@ -741,10 +797,10 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    						if( ligneFinal>ligneInitial && columnFinal<columnInitial)
 	    						{
 	    							boolean move=false;
-	    							for(i=1;i<=(ligneInitial-ligneFinal+1);i++)
+	    							for(i=1;i<=(ligneFinal-ligneInitial+1);i++)
 	    							{
-	    								if(ligneInitial+i<=8 && columnInitial+i<=8){
-	    								if(checkboard[ligneInitial+i][columnInitial-i]==null)
+	    								if(ligneInitial+i<=8 && columnInitial-i<=8){		
+	    								if(checkboard[ligneInitial+i][columnInitial-i]!=null)
 	    								{
 	    									switch(checkboard[ligneInitial+i][columnInitial-i])
 	    									{
@@ -753,6 +809,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    										move=true;
 	    										break;
 	    									case WHITE:
+	    										
 	    										if(checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_BLACK || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.WHITE || checkboard[ligneInitial+i+1][columnInitial-i-1]==PawnColor.DAME_WHITE)
 	    										{
 	    											System.out.println("il y a un pion adverse qui protege ce pion");
@@ -760,6 +817,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 	    										}
 	    										else
 	    										{	
+	    											
 	    											checkboard[ligneInitial][columnInitial]=null;
 	    											checkboard[ligneInitial+i][columnInitial-i]=null;
 	    											checkboard[ligneInitial+i+1][columnInitial-i-1]=PawnColor.DAME_BLACK;

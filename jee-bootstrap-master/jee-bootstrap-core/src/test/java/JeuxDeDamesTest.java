@@ -167,11 +167,19 @@ public class JeuxDeDamesTest {
 	game.move(6,4,5,5);
 	game.move(5,7,4,8);
 	game.move(4,8,5,9);
+	assertThat(game.select(5,9)).isEqualTo(PawnColor.BLACK);
 	game.dame();
+	assertThat(game.select(5,9)).isEqualTo(PawnColor.DAME_BLACK);
 	game.move(5,9,0,4);
+	assertThat(game.select(0,4)).isEqualTo(PawnColor.DAME_BLACK);
 	game.move(0,4,5,9);
+	assertThat(game.countWhite()).isEqualTo(11);
 	game.move(8,6,7,7);
 	game.move(5,9,9,5);
+	assertThat(game.countWhite()).isEqualTo(10);
+	game.move(9,7,8,6);
+	game.move(9,5,5,9);
+	assertThat(game.countWhite()).isEqualTo(9);
 	System.out.println(game);
 }
 
