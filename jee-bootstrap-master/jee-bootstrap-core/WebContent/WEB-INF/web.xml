@@ -7,18 +7,18 @@
 
 	<servlet>
 		<servlet-name>JeuDeDames</servlet-name>
-		<servlet-class>servlets.JeuDeDames</servlet-class>
+		<servlet-class>MathieuPack.JeuxDeDamesMain</servlet-class>
 
 		<init-param>
 			<param-name>Auteur</param-name> 
-			<param-value>Théophile et Mathieu</param-value> 
+			<param-value>Mathieu et Théophile</param-value> 
 		</init-param>
 
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>JeuDeDames</servlet-name>
-		<url-pattern>/first</url-pattern>
+		<url-pattern>/index</url-pattern>
 	</servlet-mapping>
 
 </web-app>

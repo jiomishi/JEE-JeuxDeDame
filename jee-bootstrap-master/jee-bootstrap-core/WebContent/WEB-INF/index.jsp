@@ -7,25 +7,33 @@
     </head>
 
     <body>
-        <p>Ceci est une page générée depuis une JSP.</p>
         <%-- Commentaire JSP ma gueule, visible que pour le dév --%>
         <!-- Commentaire HTML standard -->
         <div> 
-        	<%
-        	String attribut = (String) request.getAttribute("test");
-        	out.println( attribut );
-        	%>
+        	Bienvenue sur notre Servlet de jeu de Dames !
+        	<br>\\ Par Mathieu et Théophile //
         </div>
-        <p> 
-        	Récupération du bean :
-        	<%
-        		test.beans.MyBeans monBean = (test.beans.MyBeans) request.getAttribute("PremierBean");
-        		out.println(monBean.getPrenom());
-        		out.println(monBean.getNom());
-        	%>	
-        	
-        </p>
-        
-        <%= "Impression par balise d'expression " %>
+        <br>
+     
+<%
+  String plateauActuel = (String) request.getAttribute("plateau");
+%>
+
+<h4> 
+	<%= plateauActuel %>
+</h4>
+ <br>
+<form method="get">
+line 1 :
+<input name="line1" type="number" min="0" max="9"/>
+row 1 :
+<input name="row1" type="number" min="0" max="9"/>
+<br>line 2 :
+<input name="line2" type="number" min="0" max="9"/>
+row 2 :
+<input name="row2" type="number" min="0" max="9"/>
+<input type="submit" value="moveData"/>
+</form>
+
     </body>
 </html>

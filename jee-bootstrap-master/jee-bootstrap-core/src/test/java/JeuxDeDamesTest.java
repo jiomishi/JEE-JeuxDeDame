@@ -3,6 +3,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import MathieuPack.JeuxDeDamesGame;
+import MathieuPack.JeuxDeDamesGameImpl;
+import MathieuPack.PawnColor;
 
 import static org.assertj.core.api.Assertions.*;
 public class JeuxDeDamesTest {

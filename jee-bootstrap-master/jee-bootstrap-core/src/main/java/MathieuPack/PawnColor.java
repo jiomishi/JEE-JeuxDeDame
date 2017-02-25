@@ -1,3 +1,4 @@
+package MathieuPack;
 
 public enum PawnColor {
 		
