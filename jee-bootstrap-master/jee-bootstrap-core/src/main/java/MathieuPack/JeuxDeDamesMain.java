@@ -17,14 +17,7 @@ public class JeuxDeDamesMain extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * String messageBienvenue =
-		 * "Bienvenue sur notre servlet de jeu de Dames !"; String
-		 * auteursQuiPesentAMort = "Mathieu et Théophile";
-		 * 
-		 * request.setAttribute("entete", messageBienvenue);
-		 * request.setAttribute("auteurs", auteursQuiPesentAMort);
-		 */
+
 		String l1 = (String) request.getParameter("line1");
 		String l2 = (String) request.getParameter("line2");
 		String r1 = (String) request.getParameter("row1");

@@ -858,22 +858,22 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = getRowsNumber() - 1; i >= 0; i--) {
-			sb.append("|");
+			// sb.append("|");
 			for (int j = 0; j < getColumnsNumber(); j++) {
 				if (select(j, i) == PawnColor.BLACK) {
-					sb.append("O ");
+					sb.append("o");
 				} else if (select(j, i) == PawnColor.WHITE) {
-					sb.append("X ");
+					sb.append("x");
 				} else if (select(j, i) == PawnColor.DAME_WHITE) {
-					sb.append("XX");
+					sb.append("X");
 				} else if (select(j, i) == PawnColor.DAME_BLACK) {
-					sb.append("OO");
+					sb.append("O");
 				} else {
-					sb.append("__");
+					sb.append(" ");
 				}
-				sb.append("|");
+				// sb.append("|");
 			}
-			sb.append("<br>");
+			// sb.append("<br>");
 		}
 		return sb.toString();
 	}
