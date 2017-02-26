@@ -1,0 +1,24 @@
+<style>
+table, tr, td {
+    border: 1px solid black;
+}
+
+#selection{
+    position: absolute;
+    left: 260px;
+    top: 0px;
+}
+
+#Deplacement{
+	position: absolute;
+    left: 260px;
+    top: 15%;
+}
+
+#valider{
+position: absolute;
+    left: 505px;
+     top: 40%;
+}
+
+</style>
