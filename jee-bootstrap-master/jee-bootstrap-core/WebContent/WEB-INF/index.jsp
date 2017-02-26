@@ -2,71 +2,53 @@
 <!DOCTYPE html>
 <html>
     <head>
+    	<link rel="icon" href="img/white.png">
         <meta charset="utf-8" />
         <title>JeuDeDames index</title>
         <link rel="stylesheet" href="CSS/mycss.css"/>
     </head>
 
     <body>
-        <div> 
+        <h1> 
         	Bienvenue sur notre Servlet de jeu de Dames !
         	<br>\\ Par Mathieu et Théophile //
-        </div>
+        </h1>
         <br>
 
 <div>
 	<div id="boardContainer"> 
 	</div>
-	<button id="displayBoard"> Display board </button>
-	<button id="pawns"> Display pawns</button>
-</div>
- <br>
 
+	
+</div>
+<div id="chatBox">
+<div id="formBox">
 <form method="get">
-	line 1 :
-	<input name="line1" type="number" min="0" max="9"/>
-	row 1 :
-	<input name="row1" type="number" min="0" max="9"/>
-	<br>line 2 :
-	<input name="line2" type="number" min="0" max="9"/>
-	row 2 :
-	<input name="row2" type="number" min="0" max="9"/>
+	<input class="hid" id="formLineInit" name="line1" type="number" min="0" max="9" required/>
+	<input class="hid" id="formRowInit" name="row1" type="number" min="0" max="9" required/>
+	<input class="hid" id="formLineFin" name="line2" type="number" min="0" max="9" required/>
+	<input class="hid" id="formRowFin" name="row2" type="number" min="0" max="9" required/>
 	<input type="submit" value="move"/>
 </form>
+</div>
+	<%  String messageActuel = (String) request.getAttribute("chatBoxContent");
+	if( messageActuel == null) {
+		messageActuel = "Tour en cours !";
+	}
+	out.println(messageActuel);
+	%>
+</div>
+<br>
+
+
+<script type="text/javascript" src="javascript/myjs.js"></script>
 <script type="text/javascript" >
+
 
 <%  String plateauActuel = (String) request.getAttribute("plateau"); %>
 var str = "<%=plateauActuel%>";
+displayPawns(str);
 
-
-function displayBoard() {
-	document.getElementById("boardContainer").innerHTML = "Board container : <br>";
-	var i = 0;
-	var j = 0;
-	var board = document.createElement("ul");
-	
-	for(j=1; j<11; j++){
-		var line = document.createElement("li")
-		line.classList.add("line");
-		var lineList = document.createElement("ul")
-			for (i = 1; i < 11; i++) {
-				var square = document.createElement("li");
-				var content = (j-1)*10 + i;
-				square.id = content;
-				
-				if( (j+i)%2 == 0){
-					square.classList.add("caseB");	
-				} else {
-					square.classList.add("caseN");	
-				}
-				
-				lineList.appendChild(square);
-			}
-		line.appendChild(lineList);
-		board.appendChild(line);
-	}
-		document.getElementById("boardContainer").appendChild(board);
-}
 function displayPawns(boardString) {
 	var nbCases = boardString.length;
 	
@@ -82,34 +64,121 @@ function displayPawns(boardString) {
 		case "x":
 			currentCase.innerHTML = "";
 			imgContent.src = "img/white.png";
+			imgContent.addEventListener("click", sendMove);
 			currentCase.appendChild(imgContent);
 			break;
 			
 		case "o":
 			currentCase.innerHTML = "";
 			imgContent.src = "img/black.png";
+			imgContent.addEventListener("click", sendMove);
 			currentCase.appendChild(imgContent);
 			break;
 			
 		case "X":
 			currentCase.innerHTML = "";
-			imgContent.src = "img/whiteDame.png";
+			imgContent.src = "img/whitePawn.png";
+			imgContent.addEventListener("click", sendMove);
 			currentCase.appendChild(imgContent);
 			break;
 			
 		case "O":
 			currentCase.innerHTML = "";
-			imgContent.src = "img/blackDame.png";
+			imgContent.src = "img/blackPawn.png";
+			imgContent.addEventListener("click", sendMove);
 			currentCase.appendChild(imgContent);
 			break;
 			
-		default:
+		case " ":
+			currentCase.innerHTML = "";
+			imgContent.src = "img/void.png";
+			imgContent.addEventListener("click", sendMove);
+			currentCase.appendChild(imgContent);
+		
 			
 		}
 	}
 }
-displayBoard();
-document.getElementById("pawns").addEventListener("click", displayPawns(str));</script>
+
+function sendMove(e){
+	
+	for(i=1;i<101;i++){
+		var caseCleaned = document.getElementById(i);
+		if( caseCleaned.childNodes[0] != null ){
+			var imgCleaned = caseCleaned.childNodes[0];
+			if( imgCleaned.classList.contains("focusCase") )
+				imgCleaned.classList.remove("focusCase");
+		}
+	}
+	var focusPawn = e.target;
+	focusPawn.classList.add("focusCase");
+	var focusCase = focusPawn.parentNode;
+	
+	if( ((focusCase.id)%10) == 0) 
+		var lineValue = 10; 
+		else var lineValue = ((focusCase.id)%10); 
+	if( ((focusCase.id) - lineValue ) == 0) 
+		var rowValue = 1; 
+		else var rowValue = 11 - (( ((focusCase.id) - lineValue) / 10 ) + 1); 
+	
+	
+	if( document.getElementById("formRowInit").value == "" ){		
+		cleanCases();
+		spotCaseSelect(focusCase);
+		document.getElementById("formRowInit").value = rowValue; 
+		document.getElementById("formLineInit").value = lineValue;}
+	else if ( document.getElementById("formRowFin").value == "" ){
+		spotCaseDestination(focusCase);
+		document.getElementById("formRowFin").value = rowValue; 
+		document.getElementById("formLineFin").value = lineValue;
+	} else {
+		cleanCases();
+		spotCaseSelect(focusCase);
+		document.getElementById("formRowInit").value = rowValue; 
+		document.getElementById("formLineInit").value = lineValue;
+		document.getElementById("formRowFin").value = ""; 
+		document.getElementById("formLineFin").value = "";
+	}
+	
+	
+	
+}
+function cleanCases(){
+	for(i=1;i<101;i++){
+		document.getElementById(i).classList.remove("selectedCase");
+		document.getElementById(i).classList.remove("destinationCase");
+		}
+}
+function spotCaseSelect( focusCase ) {	
+	if ( focusCase != null)
+	focusCase.classList.add("selectedCase");
+}
+function spotCaseDestination( focusCase ) {	
+	for(i=1;i<101;i++){
+		document.getElementById(i).classList.remove("destinationCase");
+		}
+	if ( focusCase != null)
+	focusCase.classList.add("destinationCase");
+}
+
+function verifForm(f){
+	if ( verifField(f.line1) && verifField(f.row1) && verifField(f.line2) && verifField(f.row2) ) {
+		return true;
+	} else { 
+		return false;
+		document.getElementById()
+	}
+}
+
+function verifField(a){
+	if( a<11 && a>0 && a!= null ){
+		return true;
+	} else { 
+		return false;
+	}
+}
+
+</script>
 
     </body>
 </html>

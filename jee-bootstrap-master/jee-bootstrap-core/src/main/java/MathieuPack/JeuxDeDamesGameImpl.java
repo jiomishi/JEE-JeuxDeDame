@@ -48,14 +48,14 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 		}
 	}
 
-	public PawnColor getWinner() {
+	public String getWinner() {
 		int nbWhite = countWhite();
 		int nbBlack = countBlack();
 		if (nbWhite == 0) {
-			return PawnColor.BLACK;
+			return "black";
 		} else {
 			if (nbBlack == 0) {
-				return PawnColor.WHITE;
+				return "white";
 			} else {
 				return null;
 			}
@@ -165,17 +165,19 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 		}
 	}
 
-	public void move(int ligneInitial, int columnInitial, int ligneFinal, int columnFinal) {
+	public String move(int ligneInitial, int columnInitial, int ligneFinal, int columnFinal) {
 
 		if (ligneFinal < 0 || ligneFinal >= getColumnsNumber() || columnFinal < 0
 				|| columnFinal >= getColumnsNumber()) {
-			System.out.println("vous ne vous echapperez pas du plateau !!");
+			// System.out.println("vous ne vous echapperez pas du plateau !!");
+			return ("vous ne vous echapperez pas du plateau !!");
 		}
 
 		else {
 
 			if (checkboard[ligneInitial][columnInitial] == null) {
-				System.out.println("vous ne selectionnez pas de pion");
+				// System.out.println("vous ne selectionnez pas de pion");
+				return ("vous ne selectionnez pas de pion");
 			} else {
 
 				switch (checkboard[ligneInitial][columnInitial]) {
@@ -238,18 +240,24 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 										}
 									} else {
-										System.out.println("il y a un pion adverse qui protege ce pion");
+										// System.out.println("il y a un pion
+										// adverse qui protege ce pion");
+										return ("il y a un pion adverse qui protege ce pion");
 									}
 								}
 								break;
 
 							case WHITE:
-								System.out.println("vous avez deja un pion sur cette case");
-								break;
+								// System.out.println("vous avez deja un pion
+								// sur cette case");
+								return ("vous avez deja un pion sur cette case");
+							// break;
 							}
 						}
 					} else {
-						System.out.println("ce deplacement n'est pas autorisé");
+						// System.out.println("ce deplacement n'est pas
+						// autorisé");
+						return ("ce deplacement n'est pas autorisé");
 					}
 					break;
 				case BLACK:
@@ -263,8 +271,10 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 							switch (checkboard[ligneFinal][columnFinal]) {
 
 							case BLACK:
-								System.out.println("vous avez deja un pion sur cette case");
-								break;
+								// System.out.println("vous avez deja un pion
+								// sur cette case");
+								return ("vous avez deja un pion sur cette case");
+							// break;
 							case WHITE:
 								if (ligneFinal == ligneInitial + 1 && columnFinal == columnInitial + 1
 										&& checkboard[ligneFinal + 1][columnFinal + 1] == null) {
@@ -318,14 +328,18 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 										}
 									}
 								} else {
-									System.out.println("il y a un pion adverse qui protege ce pion");
+									// System.out.println("il y a un pion
+									// adverse qui protege ce pion");
+									return ("il y a un pion adverse qui protege ce pion");
 								}
 							}
 
 							break;
 						}
 					} else {
-						System.out.println("ce deplacement n'est pas autorisé");
+						// System.out.println("ce deplacement n'est pas
+						// autorisé");
+						return ("ce deplacement n'est pas autorisé");
 					}
 					break;
 				case DAME_WHITE:
@@ -339,9 +353,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial + i][columnInitial + i] != null) {
 										switch (checkboard[ligneInitial + i][columnInitial + i]) {
 										case WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
 											move = true;
-											break;
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case BLACK:
 											if (checkboard[ligneInitial + i + 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -351,8 +367,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial + i][columnInitial + i] = null;
@@ -362,9 +381,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_BLACK:
 											if (checkboard[ligneInitial + i + 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -374,8 +395,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial + i][columnInitial + i] = null;
@@ -402,9 +426,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial - i][columnInitial - i] != null) {
 										switch (checkboard[ligneInitial - i][columnInitial - i]) {
 										case WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case BLACK:
 											if (checkboard[ligneInitial - i - 1][columnInitial - i
 													- 1] == PawnColor.BLACK
@@ -414,8 +440,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial - i] = null;
@@ -425,10 +454,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_WHITE:
-
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_BLACK:
 											if (checkboard[ligneInitial - i - 1][columnInitial - i
 													- 1] == PawnColor.BLACK
@@ -438,8 +468,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial - i] = null;
@@ -466,9 +499,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial - i][columnInitial + i] != null) {
 										switch (checkboard[ligneInitial - i][columnInitial + i]) {
 										case WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case BLACK:
 											if (checkboard[ligneInitial - i - 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -478,8 +513,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial + i] = null;
@@ -489,9 +527,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_BLACK:
 											if (checkboard[ligneInitial - i - 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -501,8 +541,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial + i] = null;
@@ -528,9 +571,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial + i][columnInitial - i] != null) {
 										switch (checkboard[ligneInitial + i][columnInitial - i]) {
 										case WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case BLACK:
 
 											if (checkboard[ligneInitial + i + 1][columnInitial - i
@@ -541,8 +586,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 
 												checkboard[ligneInitial][columnInitial] = null;
@@ -553,9 +601,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_WHITE:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_BLACK:
 											if (checkboard[ligneInitial + i + 1][columnInitial - i
 													- 1] == PawnColor.BLACK
@@ -565,8 +615,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial + i][columnInitial - i] = null;
@@ -598,9 +651,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial + i][columnInitial + i] != null) {
 										switch (checkboard[ligneInitial + i][columnInitial + i]) {
 										case BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case WHITE:
 											if (checkboard[ligneInitial + i + 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -610,8 +665,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial + i][columnInitial + i] = null;
@@ -621,9 +679,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_WHITE:
 											if (checkboard[ligneInitial + i + 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -633,8 +693,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial + i][columnInitial + i] = null;
@@ -661,9 +724,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial - i][columnInitial - i] != null) {
 										switch (checkboard[ligneInitial - i][columnInitial - i]) {
 										case BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case WHITE:
 											if (checkboard[ligneInitial - i - 1][columnInitial - i
 													- 1] == PawnColor.BLACK
@@ -673,8 +738,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial - i] = null;
@@ -684,10 +752,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_BLACK:
-
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_WHITE:
 											if (checkboard[ligneInitial - i - 1][columnInitial - i
 													- 1] == PawnColor.BLACK
@@ -697,8 +766,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial - i] = null;
@@ -725,9 +797,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial - i][columnInitial + i] != null) {
 										switch (checkboard[ligneInitial - i][columnInitial + i]) {
 										case BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case WHITE:
 											if (checkboard[ligneInitial - i - 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -737,8 +811,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial + i] = null;
@@ -748,9 +825,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_WHITE:
 											if (checkboard[ligneInitial - i - 1][columnInitial + i
 													+ 1] == PawnColor.BLACK
@@ -760,8 +839,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															+ 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial - i - 1][columnInitial + i
 															+ 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial - i][columnInitial + i] = null;
@@ -787,9 +869,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 									if (checkboard[ligneInitial + i][columnInitial - i] != null) {
 										switch (checkboard[ligneInitial + i][columnInitial - i]) {
 										case BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case WHITE:
 
 											if (checkboard[ligneInitial + i + 1][columnInitial - i
@@ -800,8 +884,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 
 												checkboard[ligneInitial][columnInitial] = null;
@@ -812,9 +899,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 											}
 											break;
 										case DAME_BLACK:
-											System.out.println("vous avez deja un pion sur cette case");
 											move = true;
-											break;
+											// System.out.println("vous avez
+											// deja un pion sur cette case");
+											return ("vous avez deja un pion sur cette case");
+										// break;
 										case DAME_WHITE:
 											if (checkboard[ligneInitial + i + 1][columnInitial - i
 													- 1] == PawnColor.BLACK
@@ -824,8 +913,11 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 															- 1] == PawnColor.WHITE
 													|| checkboard[ligneInitial + i + 1][columnInitial - i
 															- 1] == PawnColor.DAME_WHITE) {
-												System.out.println("il y a un pion adverse qui protege ce pion");
 												move = true;
+												// System.out.println("il y a un
+												// pion adverse qui protege ce
+												// pion");
+												return ("il y a un pion adverse qui protege ce pion");
 											} else {
 												checkboard[ligneInitial][columnInitial] = null;
 												checkboard[ligneInitial + i][columnInitial - i] = null;
@@ -851,6 +943,7 @@ public class JeuxDeDamesGameImpl implements JeuxDeDamesGame {
 
 			}
 		}
+		return null;
 	}
 
 	@Override

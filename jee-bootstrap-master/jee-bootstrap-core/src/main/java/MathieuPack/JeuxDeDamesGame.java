@@ -19,7 +19,9 @@ public interface JeuxDeDamesGame {
 
 	void dame();
 
-	void move(int ligneInitiaL, int columnInitial, int ligneFinal, int columnFinal);
+	// void move(int ligneInitiaL, int columnInitial, int ligneFinal, int
+	// columnFinal);
+	String move(int ligneInitiaL, int columnInitial, int ligneFinal, int columnFinal);
 
 	PawnColor select(int ligneInitial, int columnInitial);
 
@@ -37,6 +39,6 @@ public interface JeuxDeDamesGame {
 	 */
 	int getRowsNumber();
 
-	PawnColor getWinner();
+	String getWinner();
 
 }

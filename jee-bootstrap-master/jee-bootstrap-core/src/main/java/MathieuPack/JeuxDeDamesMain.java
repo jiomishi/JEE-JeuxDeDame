@@ -22,18 +22,23 @@ public class JeuxDeDamesMain extends HttpServlet {
 		String l2 = (String) request.getParameter("line2");
 		String r1 = (String) request.getParameter("row1");
 		String r2 = (String) request.getParameter("row2");
+		String message = new String();
+		String winner = null;
 
-		if (l1 != null || l2 != null || r1 != null || r2 != null) {
+		if (l1 != null && l2 != null && r1 != null && r2 != null) {
 			int lInit = Integer.parseInt(l1) - 1;
 			int lFin = Integer.parseInt(l2) - 1;
 			int rInit = Integer.parseInt(r1) - 1;
 			int rFin = Integer.parseInt(r2) - 1;
 
-			currentGame.move(lInit, rInit, lFin, rFin);
+			message = currentGame.move(lInit, rInit, lFin, rFin);
+			winner = currentGame.getWinner();
 		}
 
 		String currentBoard = currentGame.toString();
+		request.setAttribute("theWinner", winner);
 		request.setAttribute("plateau", currentBoard);
+		request.setAttribute("chatBoxContent", message);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 
